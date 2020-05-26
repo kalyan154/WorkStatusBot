@@ -1,0 +1,361 @@
+{
+  "intents": [
+    {
+      "intent": "Thankyou",
+      "examples": [
+        {
+          "text": "Thanks"
+        },
+        {
+          "text": "ok"
+        },
+        {
+          "text": "thank you"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Employee_ID",
+      "examples": [
+        {
+          "text": "E105"
+        },
+        {
+          "text": "E101"
+        },
+        {
+          "text": "E102"
+        },
+        {
+          "text": "E103"
+        },
+        {
+          "text": "E104"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hello",
+      "examples": [
+        {
+          "text": "hi"
+        },
+        {
+          "text": "hello"
+        },
+        {
+          "text": "good morning"
+        },
+        {
+          "text": "good evening"
+        },
+        {
+          "text": "good afternoon"
+        },
+        {
+          "text": "Hai"
+        },
+        {
+          "text": "Hello I need Help"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "verification",
+      "examples": [
+        {
+          "text": "Thanks for verification"
+        },
+        {
+          "text": "Thank You for verification"
+        },
+        {
+          "text": "Thanks"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Query",
+      "examples": [
+        {
+          "text": "I have a problem"
+        },
+        {
+          "text": "I have issue"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Work",
+      "examples": [
+        {
+          "text": "I want to check work Status."
+        },
+        {
+          "text": "I want to update work status."
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "files",
+      "examples": [
+        {
+          "text": "work_file.doc"
+        },
+        {
+          "text": "updated.pdf"
+        },
+        {
+          "text": "newfile.pdf"
+        },
+        {
+          "text": "images"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Employee_ID",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "101",
+          "synonyms": [
+            "101",
+            "102",
+            "103"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_6_1590486139611",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "ID Verification",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your ID Has been Verified Succesfully."
+              },
+              {
+                "text": "Please proceed with your query now."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "multiline"
+          }
+        ]
+      },
+      "conditions": "#Employee_ID",
+      "dialog_node": "node_5_1590487558119",
+      "previous_sibling": "node_1_1590488143601"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Enter Your Employee/Job ID:"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Query",
+      "dialog_node": "node_7_1590487777712",
+      "previous_sibling": "node_5_1590487558119"
+    },
+    {
+      "type": "standard",
+      "title": "Work Status",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Ok, Upload your updated file."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Work",
+      "dialog_node": "node_1_1590488143601",
+      "previous_sibling": "node_3_1590488395700"
+    },
+    {
+      "type": "standard",
+      "title": "Upload work file",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Your file has been Uploaded & Updated Successfully."
+              },
+              {
+                "text": "Thank you."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "multiline"
+          }
+        ]
+      },
+      "conditions": "#files",
+      "dialog_node": "node_3_1590488395700",
+      "previous_sibling": "node_3_1590488904862"
+    },
+    {
+      "type": "standard",
+      "title": "How may I Assist you?",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "How are you feeling today, How may I Assist you?"
+              },
+              {
+                "text": "Welcome Sir/Madam, How May   I Help You?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Hello",
+      "dialog_node": "node_6_1590486139611",
+      "previous_sibling": "node_7_1590487777712"
+    },
+    {
+      "type": "standard",
+      "title": "Thanks",
+      "output": {
+        "generic": [
+          {
+            "source": "https://cdn.dribbble.com/users/1595195/screenshots/5653716/have_a_nice_day.jpg",
+            "response_type": "image"
+          }
+        ]
+      },
+      "conditions": "#Thankyou",
+      "dialog_node": "node_3_1590488904862",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome to Work Status",
+      "output": {
+        "generic": [
+          {
+            "source": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/blue-welcome-church-video-poster-template-df977a81710d4201a1a2a6546958ea54_screen.jpg?ts=1567088234",
+            "response_type": "image"
+          },
+          {
+            "values": [
+              {
+                "text": "Welcome to Work Status"
+              },
+              {
+                "text": "Good Evening, WELCOME"
+              },
+              {
+                "text": "Good Afternoon, WELCOME"
+              },
+              {
+                "text": "Good Morning, WELCOME"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "Welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
